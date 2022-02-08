@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetStaticProps } from "next";
 import styled from "styled-components";
 import { getApplicationRounds, saveApplication } from "../modules/api";
 import { breakpoint } from "../modules/style";
@@ -14,14 +13,6 @@ import { minimalApplicationForInitialSave } from "../modules/application/applica
 import ApplicationPage from "../components/application/ApplicationPage";
 import { MediumButton } from "../styles/util";
 import RequireAuthentication from "../components/common/RequireAuthentication";
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  };
-};
 
 const Container = styled.div`
   margin-top: var(--spacing-layout-m);
@@ -230,7 +221,15 @@ YRITYKSENÄ”. Ilmoita yhteystiedot ja sähköpostiosoite. Huomaa, että kaikki
   );
 };
 
-// we need getConfig() working here!
-Intro.getInitialProps = async () => {};
+// because we need getConfig() working with this page!
+export const getStaticProps = async ({ locale }) => {
+  const sst = await serverSideTranslations(locale);
+
+  return {
+    props: {
+      ...sst,
+    },
+  };
+};
 
 export default Intro;
