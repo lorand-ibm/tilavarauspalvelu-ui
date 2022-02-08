@@ -230,4 +230,7 @@ YRITYKSENÄ”. Ilmoita yhteystiedot ja sähköpostiosoite. Huomaa, että kaikki
   );
 };
 
+// we need getConfig() working here!
+Intro.getInitialProps = async () => {};
+
 export default Intro;
