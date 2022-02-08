@@ -1,4 +1,4 @@
-import { isBrowser, oidcClientId, oidcScope } from "../const";
+import { isBrowser } from "../const";
 
 let base = "";
 if (isBrowser) {
@@ -6,11 +6,11 @@ if (isBrowser) {
 }
 
 const configuration = {
-  client_id: oidcClientId,
+  client_id: process.env.NEXT_PUBLIC_OIDC_CLIENT_ID,
   redirect_uri: `${base}/login/helsinki/return`,
   response_type: "id_token token",
   post_logout_redirect_uri: `${base}/?logout`,
-  scope: oidcScope,
+  scope: process.env.NEXT_PUBLIC_OIDC_SCOPE,
   authority: "https://api.hel.fi/sso/",
   silent_redirect_uri: `${base}/login/helsinki/silent`,
   automaticSilentRenew: true,
