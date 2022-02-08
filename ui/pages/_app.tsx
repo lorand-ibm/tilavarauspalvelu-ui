@@ -21,6 +21,15 @@ if (mockRequests) {
   require("../mocks");
 }
 
+const AuthenticationProvider = dynamic(
+  () =>
+    // eslint-disable-next-line import/no-unresolved
+    import("@axa-fr/react-oidc-context").then(
+      (mod) => mod.AuthenticationProvider
+    ),
+  { ssr: false }
+);
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function MyApp({ Component, pageProps }: AppProps) {
   if (!isBrowser) {
@@ -35,32 +44,30 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
   }
 
-  const AuthenticationProvider = dynamic(() =>
-    // eslint-disable-next-line import/no-unresolved
-    import("@axa-fr/react-oidc-context").then(
-      (mod) => mod.AuthenticationProvider
-    )
+  console.log(
+    "initializing auth provider with config:",
+    JSON.stringify(oidcConfiguration)
   );
 
   return (
-    <DataContextProvider>
-      <TrackingWrapper>
-        <AuthenticationProvider
-          authenticating={FullscreenSpinner}
-          notAuthenticated={SessionLost}
-          sessionLostComponent={SessionLost}
-          configuration={oidcConfiguration}
-          isEnabled={authEnabled}
-          callbackComponentOverride={LoggingIn}
-        >
+    <AuthenticationProvider
+      authenticating={FullscreenSpinner}
+      notAuthenticated={SessionLost}
+      sessionLostComponent={SessionLost}
+      configuration={oidcConfiguration}
+      isEnabled={authEnabled}
+      callbackComponentOverride={LoggingIn}
+    >
+      <DataContextProvider>
+        <TrackingWrapper>
           <ApolloProvider client={apolloClient}>
             <PageWrapper>
               <Component {...pageProps} />
             </PageWrapper>
           </ApolloProvider>
-        </AuthenticationProvider>
-      </TrackingWrapper>
-    </DataContextProvider>
+        </TrackingWrapper>
+      </DataContextProvider>
+    </AuthenticationProvider>
   );
 }
 
