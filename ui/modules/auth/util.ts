@@ -25,6 +25,7 @@ export const getAccessToken = (): string | null => {
 export const updateApiAccessToken = async (
   accessToken: string | undefined
 ): Promise<string> => {
+  console.log("refreshing api access token");
   if (!accessToken) {
     throw new Error("Api access token not available. Cannot update");
   }
@@ -46,5 +47,6 @@ export const updateApiAccessToken = async (
   const apiAccessToken = data[apiScope];
   setApiAccessToken(apiAccessToken);
 
+  console.log("returning new api access token", data);
   return apiAccessToken;
 };

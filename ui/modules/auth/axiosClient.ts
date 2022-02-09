@@ -28,7 +28,9 @@ if (isBrowser && authEnabled) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const refreshAuthLogic = (failedRequest: any) => {
+    console.log("refresh auth logic");
     const accessToken = getAccessToken();
+    console.log("access token", getAccessToken);
     return updateApiAccessToken(accessToken).then((apiAccessToken) => {
       // eslint-disable-next-line no-param-reassign
       failedRequest.response.config.headers.Authorization = `Bearer ${apiAccessToken}`;
