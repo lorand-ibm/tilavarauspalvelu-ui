@@ -5,6 +5,7 @@ import styled from "styled-components";
 type Props = {
   from?: string;
   to?: string;
+  className?: string;
 };
 
 const Wrapper = styled.div<{ $from: string; $to: string }>`
@@ -14,9 +15,9 @@ const Wrapper = styled.div<{ $from: string; $to: string }>`
   `}
 `;
 
-const KorosDefault = ({ from, to }: Props): JSX.Element => {
+const KorosDefault = ({ from, to, className }: Props): JSX.Element => {
   return (
-    <Wrapper $from={from} $to={to}>
+    <Wrapper $from={from} $to={to} className={className}>
       <Koros type="basic" />
     </Wrapper>
   );

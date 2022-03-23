@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigation as HDSNavigation } from "hds-react";
 import { useTranslation, TFunction } from "next-i18next";
 import { useLocalStorage } from "react-use";
@@ -24,16 +24,22 @@ type MenuItem = {
 
 const languageOptions: LanguageOption[] = [{ label: "Suomeksi", value: "fi" }];
 
-const StyledNavigation = styled(HDSNavigation)`
+const StyledNavigation = styled(HDSNavigation)<{ $isMounted: boolean }>`
   --header-background-color: var(--tilavaraus-header-background-color);
   --header-divider-color: var(--color-black-20);
 
   color: var(--tilavaraus-header-color);
+  min-width: ${breakpoint.xs};
+  visibility: ${({ $isMounted }) => ($isMounted ? "visible" : "hidden")};
 
   .btn-logout {
     display: flex;
     margin-top: var(--spacing-m);
     cursor: pointer;
+  }
+
+  svg {
+    max-height: 48px;
   }
 
   @media (max-width: ${breakpoint.s}) {
@@ -83,7 +89,12 @@ const Navigation = ({ profile, logout }: Props): JSX.Element => {
     "userLocale",
     i18n.language
   );
-  const [shouldLogin, setShouldLogin] = React.useState(false);
+  const [shouldLogin, setShouldLogin] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const formatSelectedValue = (lang = DEFAULT_LANGUAGE): string =>
     lang.toUpperCase();
@@ -108,6 +119,7 @@ const Navigation = ({ profile, logout }: Props): JSX.Element => {
         menuToggleAriaLabel="Menu"
         skipTo="#main"
         skipToContentLabel={t("navigation:skipToMainContent")}
+        $isMounted={isMounted}
       >
         <HDSNavigation.Row variant="inline">
           {menuItems.map((item) => (
