@@ -1,4 +1,5 @@
 {
+  "pageTitle": "Varaamo",
   "dateTime": "{{date, d.M.yyyy 'klo' H.mm}}",
   "dateWithWeekday": "{{date, cccccc d.M.yyyy}}",
   "dateTimeNoYear": "{{date, d. MMMM 'klo' H.mm}}",

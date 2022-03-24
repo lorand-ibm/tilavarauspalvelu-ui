@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 import ServiceNotification from "./ServiceNotification";
@@ -17,9 +18,11 @@ const Main = styled.main<{ $bgColor?: string }>`
 `;
 
 const PageWrapper = (props: Props): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Title>Tilavarauspalvelu</Title>
+      <Title>{t("common:pageTitle")}</Title>
       <Navigation />
       <ServiceNotification />
       <Main
