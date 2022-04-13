@@ -37,10 +37,6 @@ const Container = styled.div`
   grid-gap: var(--spacing-m);
   font-size: var(--fontsize-body-m);
 
-  #applicationRound-toggle-button > span {
-    ${truncatedText}
-  }
-
   label {
     font-family: var(--font-medium);
     font-weight: 500;

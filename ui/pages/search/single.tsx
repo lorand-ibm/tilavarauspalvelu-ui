@@ -154,7 +154,7 @@ const SearchSingle = (): JSX.Element => {
         setValues(newValues);
       }
     }
-  }, [parsedParams, values]);
+  }, [parsedParams, values, i18n.language]);
 
   useEffect(() => {
     const params = queryString.parse(searchParams);
