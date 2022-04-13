@@ -75,12 +75,20 @@ const StyledSelect = styled(Select)`
     display: grid;
     text-align: left;
   }
+
+  span {
+    ${truncatedText}
+  }
 `;
 
 const Group = styled.div<{ children: ReactNode[]; $gap?: string }>`
   display: grid;
   grid-template-columns: repeat(${({ children }) => children.length}, 1fr);
   ${({ $gap }) => $gap && `gap: ${$gap};`}
+
+  label {
+    width: 200%;
+  }
 `;
 
 const Hr = styled.hr`

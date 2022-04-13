@@ -137,7 +137,7 @@ const SearchSingle = (): JSX.Element => {
   useEffect(() => {
     if (parsedParams) {
       const parsed = parsedParams;
-      if (!parsed.sort) parsed.sort = "nameFi";
+      if (!parsed.sort) parsed.sort = `name${capitalize(i18n.language)}`;
       if (!parsed.order) parsed.order = "asc";
 
       const newValues = Object.keys(parsed).reduce((p, key) => {
