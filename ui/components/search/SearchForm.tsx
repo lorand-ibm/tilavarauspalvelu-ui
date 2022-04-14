@@ -78,13 +78,16 @@ const StyledSelect = styled(Select)`
 `;
 
 const Group = styled.div<{ children: ReactNode[]; $gap?: string }>`
+  /* stylelint-disable-next-line no-descending-specificity */
+  > div:first-of-type {
+    label {
+      width: calc(${({ children }) => children.length} * 100%);
+    }
+  }
+
   display: grid;
   grid-template-columns: repeat(${({ children }) => children.length}, 1fr);
   ${({ $gap }) => $gap && `gap: ${$gap};`}
-
-  label {
-    width: 200%;
-  }
 `;
 
 const Hr = styled.hr`
